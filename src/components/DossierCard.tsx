@@ -35,7 +35,7 @@ export function DossierCard({ dossier, onUpdate, onDelete, existingGroups }: Pro
 
   return (
     <>
-      <Card className={`p-4 hover:shadow-md transition-shadow ${cardBorderColor[catKey] || ""} ${cardBgColor[catKey] || ""}`}>
+      <Card className={`p-4 hover:shadow-md transition-shadow ${cardStyles[catKey] || ""}`}>
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0 flex-1 space-y-2">
             <div className="flex items-center gap-2 flex-wrap">
