@@ -62,6 +62,7 @@ export default {
         touristique: {
           DEFAULT: "hsl(var(--touristique))",
           foreground: "hsl(var(--touristique-foreground))",
+        },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
