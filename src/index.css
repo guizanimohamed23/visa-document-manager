@@ -43,6 +43,15 @@ All colors MUST be HSL.
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
 
+    --primo: 262 83% 58%;
+    --primo-foreground: 0 0% 100%;
+    --vise: 25 95% 53%;
+    --vise-foreground: 0 0% 100%;
+    --familiale: 340 75% 55%;
+    --familiale-foreground: 0 0% 100%;
+    --touristique: 173 80% 36%;
+    --touristique-foreground: 0 0% 100%;
+
     --sidebar-background: 0 0% 98%;
 
     --sidebar-foreground: 240 5.3% 26.1%;

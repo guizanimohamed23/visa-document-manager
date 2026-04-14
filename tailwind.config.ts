@@ -47,6 +47,21 @@ export default {
           DEFAULT: "hsl(var(--warning))",
           foreground: "hsl(var(--warning-foreground))",
         },
+        primo: {
+          DEFAULT: "hsl(var(--primo))",
+          foreground: "hsl(var(--primo-foreground))",
+        },
+        vise: {
+          DEFAULT: "hsl(var(--vise))",
+          foreground: "hsl(var(--vise-foreground))",
+        },
+        familiale: {
+          DEFAULT: "hsl(var(--familiale))",
+          foreground: "hsl(var(--familiale-foreground))",
+        },
+        touristique: {
+          DEFAULT: "hsl(var(--touristique))",
+          foreground: "hsl(var(--touristique-foreground))",
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
