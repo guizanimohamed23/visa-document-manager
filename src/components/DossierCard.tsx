@@ -2,18 +2,20 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "./StatusBadge";
+import { CategoryBadges } from "./CategoryBadge";
 import { DossierForm } from "./DossierForm";
 import type { Dossier } from "@/types/dossier";
-import { Copy, Pencil, Trash2, Eye, EyeOff, Mail, Phone, CalendarDays } from "lucide-react";
+import { Copy, Pencil, Trash2, Eye, EyeOff, Mail, Phone, CalendarDays, Users } from "lucide-react";
 import { toast } from "sonner";
 
 interface Props {
   dossier: Dossier;
   onUpdate: (id: string, data: Partial<Dossier>) => void;
   onDelete: (id: string) => void;
+  existingGroups?: string[];
 }
 
-export function DossierCard({ dossier, onUpdate, onDelete }: Props) {
+export function DossierCard({ dossier, onUpdate, onDelete, existingGroups }: Props) {
   const [showPassword, setShowPassword] = useState(false);
   const [editing, setEditing] = useState(false);
 
@@ -30,7 +32,15 @@ export function DossierCard({ dossier, onUpdate, onDelete }: Props) {
             <div className="flex items-center gap-2 flex-wrap">
               <h3 className="font-semibold text-foreground truncate">{dossier.fullName}</h3>
               <StatusBadge status={dossier.status} />
+              <CategoryBadges visaType={dossier.visaType} visaPurpose={dossier.visaPurpose} />
             </div>
+
+            {dossier.group && (
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <Users className="h-3 w-3" />
+                <span className="font-medium">{dossier.group}</span>
+              </div>
+            )}
 
             <div className="grid gap-1.5 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
@@ -108,6 +118,7 @@ export function DossierCard({ dossier, onUpdate, onDelete }: Props) {
         onOpenChange={setEditing}
         initial={dossier}
         onSubmit={(data) => onUpdate(dossier.id, data)}
+        existingGroups={existingGroups}
       />
     </>
   );
