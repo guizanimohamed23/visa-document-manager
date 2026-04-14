@@ -5,16 +5,17 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import type { Dossier, DossierStatus } from "@/types/dossier";
+import type { Dossier, DossierStatus, VisaType, VisaPurpose } from "@/types/dossier";
 
 interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSubmit: (data: Omit<Dossier, "id" | "createdAt">) => void;
   initial?: Dossier;
+  existingGroups?: string[];
 }
 
-export function DossierForm({ open, onOpenChange, onSubmit, initial }: Props) {
+export function DossierForm({ open, onOpenChange, onSubmit, initial, existingGroups = [] }: Props) {
   const [form, setForm] = useState({
     email: initial?.email ?? "",
     password: initial?.password ?? "",
@@ -24,6 +25,9 @@ export function DossierForm({ open, onOpenChange, onSubmit, initial }: Props) {
     appointmentDate: initial?.appointmentDate ?? "",
     depositDate: initial?.depositDate ?? "",
     status: (initial?.status ?? "pending") as DossierStatus,
+    visaType: (initial?.visaType ?? "primo") as VisaType,
+    visaPurpose: (initial?.visaPurpose ?? "touristique") as VisaPurpose,
+    group: initial?.group ?? "",
     notes: initial?.notes ?? "",
   });
 
@@ -31,7 +35,7 @@ export function DossierForm({ open, onOpenChange, onSubmit, initial }: Props) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(form);
+    onSubmit({ ...form, group: form.group || undefined });
     onOpenChange(false);
   };
 
@@ -42,6 +46,51 @@ export function DossierForm({ open, onOpenChange, onSubmit, initial }: Props) {
           <DialogTitle>{initial ? "Modifier le dossier" : "Nouveau dossier"}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Category section */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="space-y-1.5">
+              <Label>Type de visa *</Label>
+              <Select value={form.visaType} onValueChange={(v) => set("visaType", v)}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="primo">Primo</SelectItem>
+                  <SelectItem value="vise">Visé</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1.5">
+              <Label>Motif *</Label>
+              <Select value={form.visaPurpose} onValueChange={(v) => set("visaPurpose", v)}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="familiale">Visite familiale</SelectItem>
+                  <SelectItem value="touristique">Touristique</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div className="space-y-1.5">
+            <Label>Groupe</Label>
+            <Input
+              value={form.group}
+              onChange={(e) => set("group", e.target.value)}
+              placeholder="Ex: Famille Benali, Groupe Mars..."
+              list="group-suggestions"
+            />
+            {existingGroups.length > 0 && (
+              <datalist id="group-suggestions">
+                {existingGroups.map((g) => (
+                  <option key={g} value={g} />
+                ))}
+              </datalist>
+            )}
+          </div>
+
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
               <Label>Email *</Label>
