@@ -15,18 +15,11 @@ interface Props {
   existingGroups?: string[];
 }
 
-const cardBorderColor: Record<string, string> = {
-  "primo-familiale": "border-l-4 border-l-primo",
-  "primo-touristique": "border-l-4 border-l-touristique",
-  "vise-familiale": "border-l-4 border-l-familiale",
-  "vise-touristique": "border-l-4 border-l-vise",
-};
-
-const cardBgColor: Record<string, string> = {
-  "primo-familiale": "bg-[hsl(262_83%_58%/0.06)]",
-  "primo-touristique": "bg-[hsl(173_80%_36%/0.06)]",
-  "vise-familiale": "bg-[hsl(340_75%_55%/0.06)]",
-  "vise-touristique": "bg-[hsl(25_95%_53%/0.06)]",
+const cardStyles: Record<string, string> = {
+  "primo-familiale": "border-l-4 border-l-primo bg-primo/5",
+  "primo-touristique": "border-l-4 border-l-touristique bg-touristique/5",
+  "vise-familiale": "border-l-4 border-l-familiale bg-familiale/5",
+  "vise-touristique": "border-l-4 border-l-vise bg-vise/5",
 };
 
 export function DossierCard({ dossier, onUpdate, onDelete, existingGroups }: Props) {
@@ -42,7 +35,7 @@ export function DossierCard({ dossier, onUpdate, onDelete, existingGroups }: Pro
 
   return (
     <>
-      <Card className={`p-4 hover:shadow-md transition-shadow ${cardBorderColor[catKey] || ""} ${cardBgColor[catKey] || ""}`}>
+      <Card className={`p-4 hover:shadow-md transition-shadow ${cardStyles[catKey] || ""}`}>
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0 flex-1 space-y-2">
             <div className="flex items-center gap-2 flex-wrap">
